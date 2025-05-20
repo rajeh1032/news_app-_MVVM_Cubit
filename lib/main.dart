@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/ui/home/home_screen.dart';
-import 'package:news_app/ui/home/news/search_screen.dart';
-import 'package:news_app/utils/app_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_cubit_mvvm/ui/home/home_screen.dart';
+import 'package:news_app_cubit_mvvm/ui/home/news/search_screen.dart';
+import 'package:news_app_cubit_mvvm/utils/app_theme.dart';
+import 'package:news_app_cubit_mvvm/utils/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 

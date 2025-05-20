@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_cubit_mvvm/model/my_category.dart';
+import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
+import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_view_model_cubit.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/source_tab_widget.dart';
-import 'package:news_app_cubit_mvvm/ui/home/category_details/source_view_model_provider.dart';
 import 'package:news_app_cubit_mvvm/utils/app_colors.dart';
 import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 
@@ -15,56 +17,59 @@ class SourceDetails extends StatefulWidget {
 }
 
 class _SourceDetailsState extends State<SourceDetails> {
-  SourceViewModelProvider viewModel = SourceViewModelProvider();
+  SourceViewModelCubit viewmodel = SourceViewModelCubit();
+
   @override
   void initState() {
     super.initState();
-    viewModel.getSourcesL(widget.category.id ?? "");
+    viewmodel.getSourcesL(widget.category.id ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => viewModel,
-      child: Consumer<SourceViewModelProvider>(
-          builder: (context, viewModel, child) {
-        if (viewModel.errorMessage != null) {
-          //todo: error form server
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  viewModel.errorMessage!,
-                  style: AppStyles.medium16Black
-                      .copyWith(color: Theme.of(context).indicatorColor),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    viewModel.getSourcesL(widget.category.id ?? "");
-                  },
-                  child: Text(
-                    "Try Again",
-                    style: AppStyles.medium18Black
-                        .copyWith(color: Theme.of(context).indicatorColor),
-                  ),
-                )
-              ],
-            ),
-          );
-        }
+    return BlocProvider(
+      create: (context) =>
+          viewmodel, //todo: كدا هيسمع ال بروفيدر ف بااقي الشاشات
 
-        if (viewModel.sourcesList == null) {
-          //todo: loading
+      //todo: استخدمت blocBuilder بناء ع ال state بتاعتي هنا مش ثابته و هتتغير مره loading ومره نص وزرار, اما لو ثابته زي شاشه login هنستخدم BlocListner
+      child: BlocBuilder<SourceViewModelCubit, SourceState>(
+          // bloc: viewmodel //todo: وبشيل ال blocProvider lمن فوق دا بععملو لو ال  provider مش هيسمع غير ع الاسكرينه دي بس
+          builder: (context, state) {
+        if (state is SourceLoadingState) {
           return const Center(
               child: CircularProgressIndicator(
             color: AppColors.greyColor,
           ));
+        } else if (state is SourceErrorState) {
+          return Center(
+            child: Column(
+              children: [
+                Text(
+                  state.message!,
+                  style: AppStyles.medium16White
+                      .copyWith(color: Theme.of(context).indicatorColor),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    viewmodel.getSourcesL(widget.category.id ?? "");
+                  },
+                  child: Text("Try Again",
+                      style: AppStyles.medium16White
+                          .copyWith(color: Theme.of(context).indicatorColor)),
+                ),
+              ],
+            ),
+          );
+        } else if (state is SourceSucessState) {
+          return SourceTabWidget(
+            sourceList: state.SourceList!,
+          );
         }
-        //todo: i have data
-
-        return SourceTabWidget(sourceList: viewModel.sourcesList!);
+        //un Reachable code
+        return Container();
       }),
     );
   }
@@ -77,7 +82,7 @@ Consumer: وظيفته إنه يستمع للتغييرات اللي بتحصل 
 
 هو بيتيح لك استخدام البيانات من الـ Provider بدون الحاجة إلى Provider.of(context)، وبيساعدك تقلل من عدد الـ rebuilds غير الضرورية.
 
-*/ 
+*/
 
 /*
 

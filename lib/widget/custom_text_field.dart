@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/utils/app_colors.dart';
-import 'package:news_app/utils/app_styles.dart';
+import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 
 typedef MyValidator = String? Function(String?);
 
@@ -40,7 +39,6 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-    
       style: TextStyle(
         color: Theme.of(context).indicatorColor,
       ),
