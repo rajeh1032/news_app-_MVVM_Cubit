@@ -1,10 +1,15 @@
+import 'package:news_app_cubit_mvvm/api/api_manger.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 import 'package:news_app_cubit_mvvm/repository/sources/dataSources/source_remote_data_source.dart';
 
 class SourceRemoteDataSourceImp implements SourceRemoteDataSource {
+  ApiManger apiManger;
+  SourceRemoteDataSourceImp({required this.apiManger});
   @override
-  Future<SourceResponse?> getSources(String categoryId) {
-    // TODO: implement getSources
-    throw UnimplementedError();
+  Future<SourceResponse?> getSources(String categoryId) async {
+    var response = await apiManger.getSources(categoryId);
+    return response;
   }
 }
+
+

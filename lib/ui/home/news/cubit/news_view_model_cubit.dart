@@ -1,14 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_cubit_mvvm/api/api_manger.dart';
+import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source.dart';
+import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source_imp.dart';
+import 'package:news_app_cubit_mvvm/repository/news/repository/news_repository.dart';
+import 'package:news_app_cubit_mvvm/repository/news/repository/news_repository_imp.dart';
 import 'package:news_app_cubit_mvvm/ui/home/news/cubit/news_state.dart';
 
 class NewsViewModelCubit extends Cubit<NewsState> {
-  NewsViewModelCubit() : super(NewsLoadingState());
+  late NewsRepository newsRepository;
+  late NewsReomoteDataSource newsReomoteDataSource;
+  late ApiManger apiManger;
+
+  NewsViewModelCubit() : super(NewsLoadingState()) {
+    apiManger = ApiManger();
+    newsReomoteDataSource = NewsReomoteDataSourceImp(apiManger: apiManger);
+    newsRepository =
+        NewsRepositoryImp(reomoteDataSource: newsReomoteDataSource);
+  }
   //todo:hold data--handle logic
   void getNewsBySourceId(String sourceId) async {
     try {
       emit(NewsLoadingState());
-      var response = await ApiManger.getNewsBySourceId(sourceId: sourceId);
+      var response = await newsRepository.getNewsBySourceId(sourceId: sourceId);
       if (response?.status == 'error') {
         emit(NewsErrorState(errorMessage: response!.message!));
         return;

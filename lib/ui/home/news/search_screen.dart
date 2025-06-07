@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_cubit_mvvm/api/api_manger.dart';
+import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source.dart';
+import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source_imp.dart';
+import 'package:news_app_cubit_mvvm/repository/news/repository/news_repository.dart';
+import 'package:news_app_cubit_mvvm/repository/news/repository/news_repository_imp.dart';
 import 'package:news_app_cubit_mvvm/widget/custom_text_field.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -11,6 +15,18 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  late NewsRepository newsRepository;
+  late NewsReomoteDataSource newsReomoteDataSource;
+  late ApiManger apiManger;
+  @override
+  void initState() {
+    super.initState();
+
+    apiManger = ApiManger();
+    newsReomoteDataSource = NewsReomoteDataSourceImp(apiManger: apiManger);
+    newsRepository =
+        NewsRepositoryImp(reomoteDataSource: newsReomoteDataSource);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +47,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     color: Theme.of(context).indicatorColor,
                     Icons.search),
                 onChanged: (data) async {
-                  var response = await ApiManger.getNewsBySourceId(
+                  var response = await newsRepository.getNewsBySourceId(
                       sourceId: 'ABC News', query: data);
-          
                 },
               )),
           // Expanded(child: )
