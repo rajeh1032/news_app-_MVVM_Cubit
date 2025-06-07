@@ -8,7 +8,7 @@ import 'package:news_app_cubit_mvvm/model/source_response.dart';
 
 class ApiManger {
   ///https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
-  static Future<SourceResponse?> getSources(String categoryId) async {
+   Future<SourceResponse?> getSources(String categoryId) async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoint.sourceApi,
         {'apiKey': ApiConstant.apiKey, 'category': categoryId});
     try {
