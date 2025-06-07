@@ -4,7 +4,7 @@ import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 
 class LanguageThemeBootomSheet extends StatelessWidget {
   String text;
-  LanguageThemeBootomSheet({required this.text});
+  LanguageThemeBootomSheet({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class LanguageThemeBootomSheet extends StatelessWidget {
             text,
             style: AppStyles.medium20White,
           ),
-          Icon(
+          const Icon(
             Icons.arrow_drop_down,
             color: AppColors.whiteColor,
             size: 35,

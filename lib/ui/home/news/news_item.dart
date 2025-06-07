@@ -6,7 +6,7 @@ import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
-  NewsItem({required this.news});
+  NewsItem({super.key, required this.news});
   News news;
 
   @override
@@ -24,8 +24,8 @@ class NewsItem extends StatelessWidget {
     var width = MediaQuery.of(context).size.height;
     return Container(
       height: height * 0.38,
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Theme.of(context).indicatorColor)),
@@ -45,7 +45,7 @@ class NewsItem extends StatelessWidget {
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
           ),

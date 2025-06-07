@@ -8,7 +8,7 @@ import 'drawer_item.dart';
 
 class HomeDrawer extends StatelessWidget {
   Function onDrawerMenueClick;
-  HomeDrawer({required this.onDrawerMenueClick});
+  HomeDrawer({super.key, required this.onDrawerMenueClick});
 
   @override
   Widget build(BuildContext context) {

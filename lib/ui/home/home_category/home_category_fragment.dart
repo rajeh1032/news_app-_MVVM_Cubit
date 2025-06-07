@@ -5,7 +5,7 @@ import 'package:news_app_cubit_mvvm/model/my_category.dart';
 import 'package:news_app_cubit_mvvm/utils/app_colors.dart';
 
 class CategoryFragment extends StatelessWidget {
-  CategoryFragment.HomeCategoryFragment({required this.onButtonClick});
+  CategoryFragment.HomeCategoryFragment({super.key, required this.onButtonClick});
   Function onButtonClick;
   List<MyCategory> categoryList = [];
   @override
@@ -42,7 +42,7 @@ class CategoryFragment extends StatelessWidget {
                     children: [
                       Image.asset(categoryList[index].image),
                       Container(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         width: width * 0.2,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(84),
@@ -67,7 +67,7 @@ class CategoryFragment extends StatelessWidget {
                                 //todo: goto category details
                                 onButtonClick(categoryList[index]);
                               },
-                              icon: Icon(Icons.arrow_forward_ios_outlined),
+                              icon: const Icon(Icons.arrow_forward_ios_outlined),
                               color: Theme.of(context).indicatorColor,
                             )
                           ],

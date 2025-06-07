@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 
 class DrawerItem extends StatelessWidget {
-  DrawerItem({required this.image, required this.text});
+  DrawerItem({super.key, required this.image, required this.text});
   String image;
   String text;
 

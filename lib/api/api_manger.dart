@@ -21,7 +21,7 @@ class ApiManger {
       return SourceResponse.fromJson(json); //object
       // SourceResponse.fromJson(jsonDecode(response.body));}
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -40,7 +40,7 @@ class ApiManger {
       var json = jsonDecode(bodyString);
       return NewsResponse.fromJson(json);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

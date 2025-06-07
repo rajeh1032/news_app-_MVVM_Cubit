@@ -8,15 +8,9 @@ import 'package:news_app_cubit_mvvm/ui/home/news/cubit/news_state.dart';
 
 class NewsViewModelCubit extends Cubit<NewsState> {
   late NewsRepository newsRepository;
-  late NewsReomoteDataSource newsReomoteDataSource;
-  late ApiManger apiManger;
 
-  NewsViewModelCubit() : super(NewsLoadingState()) {
-    apiManger = ApiManger();
-    newsReomoteDataSource = NewsReomoteDataSourceImp(apiManger: apiManger);
-    newsRepository =
-        NewsRepositoryImp(reomoteDataSource: newsReomoteDataSource);
-  }
+  NewsViewModelCubit({required this.newsRepository})
+      : super(NewsLoadingState());
   //todo:hold data--handle logic
   void getNewsBySourceId(String sourceId) async {
     try {

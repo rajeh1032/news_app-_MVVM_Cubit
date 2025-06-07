@@ -7,15 +7,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 class NewsBottomSheet extends StatelessWidget {
   News news;
-  NewsBottomSheet({required this.news});
+  NewsBottomSheet({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.height;
     return Container(
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           color: Theme.of(context).indicatorColor,
           borderRadius: BorderRadius.circular(8),
@@ -36,7 +36,7 @@ class NewsBottomSheet extends StatelessWidget {
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
           ),
@@ -48,7 +48,7 @@ class NewsBottomSheet extends StatelessWidget {
                   .copyWith(color: Theme.of(context).primaryColor),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             children: [
               Expanded(

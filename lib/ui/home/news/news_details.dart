@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_cubit_mvvm/api/api_manger.dart';
+import 'package:news_app_cubit_mvvm/di/di.dart';
 import 'package:news_app_cubit_mvvm/model/news_response.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
@@ -14,7 +15,7 @@ import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 import 'package:provider/provider.dart';
 
 class NewsDeatils extends StatefulWidget {
-  NewsDeatils({required this.source});
+  NewsDeatils({super.key, required this.source});
 
   Source source;
 
@@ -23,7 +24,8 @@ class NewsDeatils extends StatefulWidget {
 }
 
 class _NewsDeatilsState extends State<NewsDeatils> {
-  NewsViewModelCubit viewmodel = NewsViewModelCubit();
+  NewsViewModelCubit viewmodel =
+      NewsViewModelCubit(newsRepository: injectNewsRepository());
   @override
   void initState() {
     super.initState();

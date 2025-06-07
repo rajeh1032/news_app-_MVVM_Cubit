@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_cubit_mvvm/api/api_manger.dart';
+import 'package:news_app_cubit_mvvm/di/di.dart';
 import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source.dart';
 import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reomote_data_source_imp.dart';
 import 'package:news_app_cubit_mvvm/repository/news/repository/news_repository.dart';
@@ -15,18 +16,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late NewsRepository newsRepository;
-  late NewsReomoteDataSource newsReomoteDataSource;
-  late ApiManger apiManger;
-  @override
-  void initState() {
-    super.initState();
-
-    apiManger = ApiManger();
-    newsReomoteDataSource = NewsReomoteDataSourceImp(apiManger: apiManger);
-    newsRepository =
-        NewsRepositoryImp(reomoteDataSource: newsReomoteDataSource);
-  }
+  late NewsRepository newsRepository = injectNewsRepository();
 
   @override
   Widget build(BuildContext context) {

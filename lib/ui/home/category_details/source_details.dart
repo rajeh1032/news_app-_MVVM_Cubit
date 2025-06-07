@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_cubit_mvvm/di/di.dart';
 import 'package:news_app_cubit_mvvm/model/my_category.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_view_model_cubit.dart';
@@ -10,14 +11,15 @@ import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 import 'package:provider/provider.dart';
 
 class SourceDetails extends StatefulWidget {
-  SourceDetails({required this.category});
+  SourceDetails({super.key, required this.category});
   MyCategory category;
   @override
   State<SourceDetails> createState() => _SourceDetailsState();
 }
 
 class _SourceDetailsState extends State<SourceDetails> {
-  SourceViewModelCubit viewmodel = SourceViewModelCubit();
+  SourceViewModelCubit viewmodel =
+      SourceViewModelCubit(sourceRepository: injectSourceRepository());
 
   @override
   void initState() {
@@ -49,7 +51,7 @@ class _SourceDetailsState extends State<SourceDetails> {
                   style: AppStyles.medium16White
                       .copyWith(color: Theme.of(context).indicatorColor),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 ElevatedButton(

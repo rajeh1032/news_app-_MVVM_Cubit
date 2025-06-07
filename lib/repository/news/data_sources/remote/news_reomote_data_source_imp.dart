@@ -4,7 +4,7 @@ import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reo
 
 class NewsReomoteDataSourceImp implements NewsReomoteDataSource {
   ApiManger apiManger;
-  NewsReomoteDataSourceImp({required this.apiManger});
+  NewsReomoteDataSourceImp.NewsRemoteDataSourceImp({required this.apiManger});
   @override
   Future<NewsResponse?> getNewsBySourceId(
       {required String sourceId, String? query}) async {
