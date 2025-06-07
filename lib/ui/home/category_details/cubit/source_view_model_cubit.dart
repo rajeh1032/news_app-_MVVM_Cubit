@@ -4,6 +4,7 @@ import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.
 
 //لازم اعمل وراثه بيورث كل حاجه ماعدا ال constructor
 class SourceViewModelCubit extends Cubit<SourceState> {
+  //todo :intial state
   SourceViewModelCubit() : super(SourceLoadingState());
   //todo : hold Data -- handle Logic
   void getSourcesL(String categoryId) async {

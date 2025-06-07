@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_cubit_mvvm/api/api_manger.dart';
+import 'package:news_app_cubit_mvvm/model/news_response.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
+import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
+import 'package:news_app_cubit_mvvm/ui/home/news/cubit/news_state.dart';
+import 'package:news_app_cubit_mvvm/ui/home/news/cubit/news_view_model_cubit.dart';
 import 'package:news_app_cubit_mvvm/ui/home/news/news_bottom_shee.dart';
 import 'package:news_app_cubit_mvvm/ui/home/news/news_item.dart';
-import 'package:news_app_cubit_mvvm/ui/home/news/news_view_model_provider.dart';
 import 'package:news_app_cubit_mvvm/utils/app_colors.dart';
 import 'package:news_app_cubit_mvvm/utils/app_styles.dart';
 
@@ -18,76 +23,55 @@ class NewsDeatils extends StatefulWidget {
 }
 
 class _NewsDeatilsState extends State<NewsDeatils> {
-  NewsViewModelProvider viewModel = NewsViewModelProvider();
+  NewsViewModelCubit viewmodel = NewsViewModelCubit();
   @override
   void initState() {
     super.initState();
-    viewModel.getNewsL(sourceId: widget.source.id ?? "");
+
+    viewmodel.getNewsBySourceId(widget.source.id ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => viewModel,
-      child:
-          Consumer<NewsViewModelProvider>(builder: (context, viewModel, child) {
-        //child is ? widget that can be initialize in consumer and not rebuild or change, will be fixed
-        // child = Text(
-        //   "Hello",
-        //   style: AppStyles.medium16White
-        //       .copyWith(color: Theme.of(context).indicatorColor),
-        // );
-        if (viewModel.errorMessage != null) {
-          //todo:error from server
-          return Center(
-            child: Column(
-              children: [
-                Text(
-                  viewModel.errorMessage!,
-                  style: AppStyles.medium16White
-                      .copyWith(color: Theme.of(context).indicatorColor),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    viewModel.getNewsL(sourceId: widget.source.id ?? "");
-                  },
-                  child: Text("Try Again",
-                      style: AppStyles.medium16White
-                          .copyWith(color: Theme.of(context).indicatorColor)),
-                ),
-              ],
-            ),
-          );
-        }
-        if (viewModel.newsList == null) {
-          //todo:loading
-          return const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.greyColor,
-            ),
-          );
-        }
-        return ListView.builder(
-            itemCount: viewModel.newsList!.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  // child!,///call child like this
-                  InkWell(
+    return BlocBuilder<NewsViewModelCubit, NewsState>(
+        bloc: viewmodel,
+        builder: (context, state) {
+          if (state is NewsLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.greyColor,
+              ),
+            );
+          } else if (state is NewsErrorState) {
+            Text(
+              state.errorMessage,
+              style: Theme.of(context).textTheme.headlineMedium,
+            );
+            ElevatedButton(
+              onPressed: () {
+                viewmodel.getNewsBySourceId(widget.source.id ?? "");
+              },
+              child: Text(
+                "Try Again",
+                style: AppStyles.medium18Black,
+              ),
+            );
+          } else if (state is NewsSuccessState) {
+            return ListView.builder(
+                itemCount: state.newsList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
                       onTap: () => showModalBottomSheet(
                           context: context,
                           builder: (context) => NewsBottomSheet(
-                                news: viewModel.newsList![index],
+                                news: state.newsList[index],
                               )),
-                      child: NewsItem(news: viewModel.newsList![index])),
-                ],
-              );
-            });
-      }),
-    );
+                      child: NewsItem(news: state.newsList[index]));
+                });
+          }
+
+          return Container();
+        });
   }
 }
 /*
