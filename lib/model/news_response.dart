@@ -1,5 +1,3 @@
-
-
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 
 class NewsResponse {
@@ -12,7 +10,7 @@ class NewsResponse {
   NewsResponse(
       {this.status, this.message, this.code, this.totalResults, this.articles});
 
-  factory NewsResponse.fromJson(Map<String, dynamic> json) => NewsResponse(
+  factory NewsResponse.fromJson(dynamic json) => NewsResponse(
         status: json['status'] as String?,
         message: json['message'] as String?,
         code: json['code'] as String?,
@@ -52,7 +50,7 @@ class News {
     this.content,
   });
 
-  factory News.fromJson(Map<String, dynamic> json) => News(
+  factory News.fromJson(dynamic json) => News(
         source: json['source'] == null
             ? null
             : Source.fromJson(json['source'] as Map<String, dynamic>),

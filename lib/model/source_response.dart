@@ -1,13 +1,19 @@
-class SourceResponse {
+import 'package:hive/hive.dart';
+part 'source_response.g.dart';
+@HiveType(typeId: 1)
+class SourceResponse extends HiveObject {
+    @HiveField(0)
   String? status;
+   @HiveField(1)
   String? message;
+   @HiveField(2)
   String? code;
+   @HiveField(3)
   List<Source>? sources;
-
 
   SourceResponse({this.status, this.message, this.code, this.sources});
 
-  factory SourceResponse.fromJson(Map<String, dynamic> json) {
+  factory SourceResponse.fromJson(dynamic json) {
     return SourceResponse(
       status: json['status'] as String?,
       message: json['message'] as String?,
@@ -25,14 +31,21 @@ class SourceResponse {
         'sources': sources?.map((e) => e.toJson()).toList(),
       };
 }
-
-class Source {
+@HiveType(typeId: 2)
+class Source  extends HiveObject {
+     @HiveField(0)
   String? id;
+     @HiveField(1)
   String? name;
+     @HiveField(2)
   String? description;
+   @HiveField(3)
   String? url;
+     @HiveField(4)
   String? category;
+     @HiveField(5)
   String? language;
+     @HiveField(6)
   String? country;
 
   Source({
@@ -45,7 +58,7 @@ class Source {
     this.country,
   });
 
-  factory Source.fromJson(Map<String, dynamic> json) => Source(
+  factory Source.fromJson(dynamic json) => Source(
         id: json['id'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,
