@@ -20,15 +20,11 @@ SourceRepository injectSourceRepository() {
 }
 
 SourceRemoteDataSource injectSourceRemoteDataSource() {
-  return SourceRemoteDataSourceImp(apiManger: injectApiManger());
+  return SourceRemoteDataSourceImp(apiManger: ApiManger.getInsatance());
 }
 
 SourceOfflineDataSource injectOfllineDataSource() {
   return SourceOfflineDataSourceImp();
-}
-
-ApiManger injectApiManger() {
-  return ApiManger();
 }
 
 NewsRepository injectNewsRepository() {
@@ -37,5 +33,5 @@ NewsRepository injectNewsRepository() {
 
 NewsReomoteDataSource injectNewsRemoteDataSource() {
   return NewsReomoteDataSourceImp.NewsRemoteDataSourceImp(
-      apiManger: injectApiManger());
+      apiManger: ApiManger.getInsatance());
 }

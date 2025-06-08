@@ -7,8 +7,17 @@ import 'package:news_app_cubit_mvvm/model/news_response.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 
 class ApiManger {
+  static ApiManger? _instance;
+  //todo: private Constructor
+  ApiManger._();
+
+  static ApiManger getInsatance() {
+    _instance ??= ApiManger._();
+    return _instance!;
+  }
+
   ///https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
-   Future<SourceResponse?> getSources(String categoryId) async {
+  Future<SourceResponse?> getSources(String categoryId) async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoint.sourceApi,
         {'apiKey': ApiConstant.apiKey, 'category': categoryId});
     try {
@@ -26,7 +35,7 @@ class ApiManger {
   }
 
   ///https://newsapi.org/v2/everything?apiKey=97dd6c1ac1df483aa508c63a8eed7cf7
-   Future<NewsResponse?> getNewsBySourceId(
+  Future<NewsResponse?> getNewsBySourceId(
       {required String sourceId, String? query}) async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoint.newsApi, {
       'apiKey': ApiConstant.apiKey,
