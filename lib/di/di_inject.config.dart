@@ -14,6 +14,8 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../api/api_manger.dart' as _i339;
 import '../repository/news/data_sources/remote/news_reomote_data_source.dart'
     as _i279;
+import '../repository/news/data_sources/remote/news_reomote_data_source_imp.dart'
+    as _i426;
 import '../repository/news/repository/news_repository.dart' as _i251;
 import '../repository/news/repository/news_repository_imp.dart' as _i235;
 import '../repository/sources/dataSources/oflline/source_offline_data_source.dart'
@@ -42,6 +44,8 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.singleton<_i339.ApiManger>(() => _i339.ApiManger());
+    gh.factory<_i279.NewsReomoteDataSource>(
+        () => _i426.NewsReomoteDataSourceImp(apiManger: gh<_i339.ApiManger>()));
     gh.factory<_i1060.SourceOfflineDataSource>(
         () => _i969.SourceOfflineDataSourceImp());
     gh.factory<_i675.SourceRemoteDataSource>(() =>

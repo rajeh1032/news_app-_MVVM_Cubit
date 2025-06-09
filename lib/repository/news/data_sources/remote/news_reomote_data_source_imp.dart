@@ -5,7 +5,7 @@ import 'package:news_app_cubit_mvvm/repository/news/data_sources/remote/news_reo
 @Injectable(as:NewsReomoteDataSource )
 class NewsReomoteDataSourceImp implements NewsReomoteDataSource {
   ApiManger apiManger;
-  NewsReomoteDataSourceImp.NewsRemoteDataSourceImp({required this.apiManger});
+  NewsReomoteDataSourceImp({required this.apiManger});
   @override
   Future<NewsResponse?> getNewsBySourceId(
       {required String sourceId, String? query}) async {
