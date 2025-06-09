@@ -4,7 +4,7 @@ part of 'source_response.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
-// ************************************************************** ************
+// **************************************************************************
 
 class SourceResponseAdapter extends TypeAdapter<SourceResponse> {
   @override

@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 import 'package:news_app_cubit_mvvm/repository/sources/dataSources/oflline/source_offline_data_source.dart';
 import 'package:news_app_cubit_mvvm/repository/sources/dataSources/remote/source_remote_data_source.dart';
 import 'package:news_app_cubit_mvvm/repository/sources/repository/source_repository.dart';
 
+@Injectable(as: SourceRepository)
 class SourceRepositoryImp implements SourceRepository {
   SourceRemoteDataSource remoteDataSource;
   SourceOfflineDataSource offlineDataSource;

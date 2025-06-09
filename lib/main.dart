@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_cubit_mvvm/di/di_inject.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 import 'package:news_app_cubit_mvvm/ui/home/home_screen.dart';
 import 'package:news_app_cubit_mvvm/ui/home/news/search_screen.dart';
@@ -19,6 +20,7 @@ void main() async {
   Hive.init(documentDirectory.path);
   Hive.registerAdapter(SourceResponseAdapter());
   Hive.registerAdapter(SourceAdapter());
+  configureDependencies(); 
   runApp(MyApp());
 }
 

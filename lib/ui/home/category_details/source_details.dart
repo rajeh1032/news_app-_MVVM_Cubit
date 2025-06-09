@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_cubit_mvvm/di/di.dart';
+import 'package:news_app_cubit_mvvm/di/di_inject.dart';
 import 'package:news_app_cubit_mvvm/model/my_category.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_view_model_cubit.dart';
@@ -18,8 +19,8 @@ class SourceDetails extends StatefulWidget {
 }
 
 class _SourceDetailsState extends State<SourceDetails> {
-  SourceViewModelCubit viewmodel =
-      SourceViewModelCubit(sourceRepository: injectSourceRepository());
+  SourceViewModelCubit viewmodel = getIt<SourceViewModelCubit>();//field injeiction 
+  // SourceViewModelCubit(sourceRepository: injectSourceRepository());
 
   @override
   void initState() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_cubit_mvvm/api/api_manger.dart';
 import 'package:news_app_cubit_mvvm/di/di.dart';
+import 'package:news_app_cubit_mvvm/di/di_inject.dart';
 import 'package:news_app_cubit_mvvm/model/news_response.dart';
 import 'package:news_app_cubit_mvvm/model/source_response.dart';
 import 'package:news_app_cubit_mvvm/ui/home/category_details/cubit/source_state.dart';
@@ -24,8 +25,8 @@ class NewsDeatils extends StatefulWidget {
 }
 
 class _NewsDeatilsState extends State<NewsDeatils> {
-  NewsViewModelCubit viewmodel =
-      NewsViewModelCubit(newsRepository: injectNewsRepository());
+  NewsViewModelCubit viewmodel = getIt<NewsViewModelCubit>(); //filed injiction
+      // NewsViewModelCubit(newsRepository: injectNewsRepository());
   @override
   void initState() {
     super.initState();
